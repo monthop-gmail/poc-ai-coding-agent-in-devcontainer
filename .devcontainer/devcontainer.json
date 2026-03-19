@@ -23,9 +23,22 @@
     }
   },
 
+  // --- Port Forwarding ---
+  "forwardPorts": [3000, 3100],
+  "portsAttributes": {
+    "3000": {
+      "label": "OpenCode Web UI",
+      "onAutoForward": "notify"
+    },
+    "3100": {
+      "label": "Memory MCP Server",
+      "onAutoForward": "silent"
+    }
+  },
+
   // --- Lifecycle Scripts ---
   "postCreateCommand": "bash /workspace/scripts/setup.sh",
-  "postStartCommand": "echo '🤖 OpenCode Agent ready! Run: opencode'",
+  "postStartCommand": "echo '🤖 OpenCode Agent ready! Run: opencode  |  Web UI: opencode web --port 3000'",
 
   // --- Environment ---
   "remoteEnv": {
