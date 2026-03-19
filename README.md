@@ -160,6 +160,7 @@ Agent ที่ตั้งค่าไว้ใน `.opencode/agents/`:
 | ตัวอย่าง | รายละเอียด | วิธีใช้ |
 |---------|-----------|--------|
 | [Odoo Module Dev](examples/odoo-module-dev/) | พัฒนา Odoo module พร้อม seed ความรู้ ORM, views, security | `bash examples/odoo-module-dev/seed-memory.sh` |
+| [PWA Dev](examples/pwa-dev/) | พัฒนา Progressive Web App: offline-first, service worker, push notification | `bash examples/pwa-dev/seed-memory.sh` |
 
 ## โครงสร้างโปรเจกต์
 
