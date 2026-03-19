@@ -155,6 +155,12 @@ Agent ที่ตั้งค่าไว้ใน `.opencode/agents/`:
 | `@coder` | เขียนโค้ด full-stack พร้อมใช้ memory ของทีม |
 | `@reviewer` | รีวิวโค้ดตาม conventions ที่เก็บใน memory |
 
+## นำไปใช้กับ Project ที่มีอยู่แล้ว
+
+ดูคู่มือฉบับเต็ม: **[docs/integrate-existing-project.md](docs/integrate-existing-project.md)**
+
+สรุปสั้นๆ: clone template → copy ไฟล์เข้า project → ตั้งค่า `.env` → เปิดใช้
+
 ## ตัวอย่างการใช้งาน
 
 | ตัวอย่าง | รายละเอียด | วิธีใช้ |
