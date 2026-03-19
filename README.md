@@ -1,6 +1,6 @@
 # POC: AI Coding Agent in DevContainer
 
-AI Coding Agent ([OpenCode](https://opencode.ai/)) running in a DevContainer with **Global Team Memory** backed by Redis.
+AI Coding Agent ([OpenCode](https://opencode.ai/)) ทำงานใน DevContainer พร้อม **Global Team Memory** เก็บข้อมูลถาวรด้วย Redis
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -17,17 +17,17 @@ AI Coding Agent ([OpenCode](https://opencode.ai/)) running in a DevContainer wit
 └─────────────────────────────────────────────────┘
 ```
 
-## Features
+## คุณสมบัติ
 
-- **OpenCode** - Open-source AI coding agent with TUI, supports 75+ models
-- **Global Memory** - Team-shared memory via custom MCP server + Redis
-- **Multi-Provider** - Pre-configured for Qwen (DashScope) and Groq
-- **Persistent** - Memory survives container rebuilds via Redis volume
-- **DevContainer** - One-click setup in VS Code / GitHub Codespaces
+- **OpenCode** - AI coding agent แบบ open-source รองรับ 75+ models
+- **Global Memory** - หน่วยความจำกลางของทีม ผ่าน MCP server + Redis
+- **Multi-Provider** - ตั้งค่า Qwen (DashScope) และ Groq มาให้พร้อมใช้
+- **Persistent** - Memory ไม่หายแม้ rebuild container (เก็บใน Redis volume)
+- **DevContainer** - ตั้งค่าครั้งเดียว ใช้ได้ทั้ง VS Code และ GitHub Codespaces
 
-## Quick Start
+## เริ่มต้นใช้งาน
 
-### 1. Clone & Configure
+### 1. Clone และตั้งค่า
 
 ```bash
 git clone https://github.com/monthop-gmail/poc-ai-coding-agent-in-devcontainer.git
@@ -35,7 +35,7 @@ cd poc-ai-coding-agent-in-devcontainer
 cp .env.example .env
 ```
 
-Edit `.env` with your API keys:
+แก้ไข `.env` ใส่ API keys:
 
 ```env
 QWEN_API_KEY=sk-xxxxx
@@ -43,28 +43,28 @@ GROQ_API_KEY=gsk_xxxxx
 TEAM_NAMESPACE=my-team
 ```
 
-### 2a. VS Code DevContainer (Recommended)
+### 2a. VS Code DevContainer (แนะนำ)
 
-1. Open folder in VS Code
-2. Install **Dev Containers** extension
+1. เปิดโฟลเดอร์ใน VS Code
+2. ติดตั้ง extension **Dev Containers**
 3. `Ctrl+Shift+P` → "Reopen in Container"
-4. Run `opencode` in terminal
+4. รัน `opencode` ใน terminal
 
 ### 2b. GitHub Codespaces
 
-Works in both **web browser** and **VS Code Desktop** — no local Docker needed.
+ใช้ได้ทั้ง **web browser** และ **VS Code Desktop** โดยไม่ต้องติดตั้ง Docker ในเครื่อง
 
-1. Click **Code** → **Codespaces** → **Create codespace on main**
-2. Wait for container to build (~2-3 min first time)
-3. Run `opencode` in terminal
+1. กด **Code** → **Codespaces** → **Create codespace on main**
+2. รอ container build (~2-3 นาทีครั้งแรก)
+3. รัน `opencode` ใน terminal
 
-**Setup API keys** (one-time): Go to [GitHub Settings → Codespaces → Secrets](https://github.com/settings/codespaces) and add:
+**ตั้งค่า API keys** (ครั้งเดียว): ไปที่ [GitHub Settings → Codespaces → Secrets](https://github.com/settings/codespaces) แล้วเพิ่ม:
 - `QWEN_API_KEY`
 - `GROQ_API_KEY`
 
-> **Note:** Redis volume persists as long as the Codespace exists. If you need memory to survive across different Codespaces, consider using a managed Redis service (e.g., [Upstash](https://upstash.com/)) and update `REDIS_URL` in `docker-compose.yml`.
+> **หมายเหตุ:** Redis volume จะคงอยู่ตราบใดที่ Codespace ยังไม่ถูกลบ หากต้องการ memory ที่ใช้ร่วมกันข้าม Codespace ควรใช้ managed Redis (เช่น [Upstash](https://upstash.com/)) แล้วอัปเดต `REDIS_URL` ใน `docker-compose.yml`
 
-**VS Code Desktop**: Open a running Codespace locally via `Ctrl+Shift+P` → "Codespaces: Connect to Codespace", or click "Open in VS Code Desktop" from the browser.
+**ใช้ผ่าน VS Code Desktop**: กด `Ctrl+Shift+P` → "Codespaces: Connect to Codespace" หรือกด "Open in VS Code Desktop" จาก browser
 
 ### 2c. Docker Compose (Manual)
 
@@ -74,103 +74,111 @@ docker compose exec workspace bash
 opencode
 ```
 
-## Available Models
+## Models ที่พร้อมใช้
 
-| Provider | Model | Use Case |
+| Provider | Model | ใช้ทำอะไร |
 |----------|-------|----------|
-| **Qwen** | `qwen-coder-plus-latest` | Coding |
-| **Qwen** | `qwen3.5-plus` | General |
+| **Qwen** | `qwen-coder-plus-latest` | เขียนโค้ด |
+| **Qwen** | `qwen3.5-plus` | งานทั่วไป |
 | **Qwen** | `qwen3.5-397b-a17b` | Large MoE |
-| **Qwen** | `qwen-plus-latest` | General |
-| **Qwen** | `qwen-turbo-latest` | Fast |
-| **Groq** | `llama-3.3-70b-versatile` | Fast inference |
-| **Groq** | `qwen-qwq-32b` | Reasoning |
+| **Qwen** | `qwen-plus-latest` | งานทั่วไป |
+| **Qwen** | `qwen-turbo-latest` | เร็ว ประหยัด |
+| **Groq** | `llama-3.3-70b-versatile` | Inference เร็ว |
+| **Groq** | `qwen-qwq-32b` | วิเคราะห์/ให้เหตุผล |
 | **Groq** | `meta-llama/llama-4-scout-17b-16e-instruct` | Llama 4 |
 | **Groq** | `moonshotai/kimi-k2-instruct-0905` | Kimi K2 |
 
-## Global Memory System
+## ระบบ Global Memory
 
-Memory is shared across all team members and persists across container restarts.
+Memory ถูกแชร์ข้ามทุกคนในทีม และคงอยู่แม้ restart container
 
-### Memory Types
+### ประเภท Memory
 
-| Type | Purpose | Example |
-|------|---------|---------|
-| `fact` | Decisions, conventions | "We use TypeScript strict mode" |
-| `feedback` | User preferences, corrections | "Don't mock DB in integration tests" |
-| `context` | Current work, goals, blockers | "Working on auth refactor" |
-| `snippet` | Reusable code patterns | Error handler middleware |
+| ประเภท | วัตถุประสงค์ | ตัวอย่าง |
+|--------|-------------|---------|
+| `fact` | ข้อตกลง, แนวปฏิบัติ | "ทีมใช้ TypeScript strict mode" |
+| `feedback` | ความชอบ, สิ่งที่ต้องแก้ไข | "ห้าม mock DB ใน integration tests" |
+| `context` | งานที่ทำอยู่, เป้าหมาย, ปัญหา | "กำลัง refactor ระบบ auth" |
+| `snippet` | โค้ดที่ใช้ซ้ำได้ | Error handler middleware |
 
 ### Memory API (HTTP)
 
 ```bash
-# Health check
+# ตรวจสอบสถานะ
 curl http://localhost:3100/health
 
-# Browse all memories
+# ดู memory ทั้งหมด
 curl http://localhost:3100/memories
 
-# Save a memory
+# บันทึก memory
 curl -X POST http://localhost:3100/mcp \
   -H "Content-Type: application/json" \
   -d '{"params":{"name":"memory_save","arguments":{
     "type":"fact",
     "id":"deploy-target",
-    "content":"We deploy to AWS ECS",
+    "content":"ทีม deploy ขึ้น AWS ECS",
     "metadata":{"author":"devops","tags":["infra"]}
   }}}'
 
-# Search memories
+# ค้นหา memory
 curl -X POST http://localhost:3100/mcp \
   -H "Content-Type: application/json" \
   -d '{"params":{"name":"memory_search","arguments":{"query":"deploy"}}}'
 ```
 
-### In OpenCode
+### ใช้ใน OpenCode
 
-The agent automatically has access to memory tools via MCP:
+Agent เข้าถึง memory tools ผ่าน MCP โดยอัตโนมัติ:
 
 ```
-> search memory for our coding conventions
-> save a fact: we use pnpm as package manager
-> list all feedback memories
+> ค้นหา memory เกี่ยวกับ coding conventions ของทีม
+> บันทึก fact: ทีมใช้ pnpm เป็น package manager
+> แสดง feedback memories ทั้งหมด
 ```
 
 ## Custom Agents
 
-Pre-configured agents in `.opencode/agents/`:
+Agent ที่ตั้งค่าไว้ใน `.opencode/agents/`:
 
-| Agent | Description |
-|-------|-------------|
-| `@coder` | Full-stack coding agent with memory awareness |
-| `@reviewer` | Code review against team conventions from memory |
+| Agent | รายละเอียด |
+|-------|-----------|
+| `@coder` | เขียนโค้ด full-stack พร้อมใช้ memory ของทีม |
+| `@reviewer` | รีวิวโค้ดตาม conventions ที่เก็บใน memory |
 
-## Project Structure
+## ตัวอย่างการใช้งาน
+
+| ตัวอย่าง | รายละเอียด | วิธีใช้ |
+|---------|-----------|--------|
+| [Odoo Module Dev](examples/odoo-module-dev/) | พัฒนา Odoo module พร้อม seed ความรู้ ORM, views, security | `bash examples/odoo-module-dev/seed-memory.sh` |
+
+## โครงสร้างโปรเจกต์
 
 ```
 .
 ├── .devcontainer/
-│   ├── devcontainer.json    # DevContainer config
+│   ├── devcontainer.json    # ตั้งค่า DevContainer
 │   └── Dockerfile           # Ubuntu + OpenCode
 ├── .opencode/
 │   └── agents/
-│       ├── coder.md         # Coding agent definition
-│       └── reviewer.md      # Review agent definition
+│       ├── coder.md         # Agent สำหรับเขียนโค้ด
+│       └── reviewer.md      # Agent สำหรับรีวิวโค้ด
 ├── memory-server/
-│   ├── Dockerfile           # Memory MCP server container
+│   ├── Dockerfile           # Container ของ Memory MCP server
 │   ├── package.json
-│   └── server.mjs           # MCP server (Redis-backed)
+│   └── server.mjs           # MCP server (ใช้ Redis เก็บข้อมูล)
+├── examples/
+│   └── odoo-module-dev/     # ตัวอย่าง: พัฒนา Odoo module
 ├── scripts/
-│   └── setup.sh             # Post-create setup
+│   └── setup.sh             # Script ตั้งค่าหลังสร้าง container
 ├── docker-compose.yml       # 3 services: workspace, memory, redis
-├── opencode.json            # OpenCode config (providers + MCP)
-├── .env.example             # API keys template
+├── opencode.json            # ตั้งค่า OpenCode (providers + MCP)
+├── .env.example             # ตัวอย่าง API keys
 └── .gitignore
 ```
 
-## Adding More Providers
+## เพิ่ม Provider อื่น
 
-Edit `opencode.json` to add any OpenAI-compatible provider:
+แก้ไข `opencode.json` เพื่อเพิ่ม provider ที่รองรับ OpenAI-compatible API:
 
 ```json
 {
