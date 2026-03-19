@@ -24,9 +24,9 @@
   },
 
   // --- Port Forwarding ---
-  "forwardPorts": [4040, 3100],
+  "forwardPorts": [4096, 3100],
   "portsAttributes": {
-    "4040": {
+    "4096": {
       "label": "OpenCode Web UI",
       "onAutoForward": "notify"
     },
@@ -38,7 +38,7 @@
 
   // --- Lifecycle Scripts ---
   "postCreateCommand": "bash /workspace/scripts/setup.sh",
-  "postStartCommand": "echo '🤖 OpenCode Agent ready! Run: opencode  |  Web UI: opencode web --port 4040'",
+  "postStartCommand": "echo '🤖 OpenCode Agent ready! Run: opencode  |  Web UI: opencode web --port 4096'",
 
   // --- Environment ---
   "remoteEnv": {
