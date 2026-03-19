@@ -50,7 +50,23 @@ TEAM_NAMESPACE=my-team
 3. `Ctrl+Shift+P` → "Reopen in Container"
 4. Run `opencode` in terminal
 
-### 2b. Docker Compose (Manual)
+### 2b. GitHub Codespaces
+
+Works in both **web browser** and **VS Code Desktop** — no local Docker needed.
+
+1. Click **Code** → **Codespaces** → **Create codespace on main**
+2. Wait for container to build (~2-3 min first time)
+3. Run `opencode` in terminal
+
+**Setup API keys** (one-time): Go to [GitHub Settings → Codespaces → Secrets](https://github.com/settings/codespaces) and add:
+- `QWEN_API_KEY`
+- `GROQ_API_KEY`
+
+> **Note:** Redis volume persists as long as the Codespace exists. If you need memory to survive across different Codespaces, consider using a managed Redis service (e.g., [Upstash](https://upstash.com/)) and update `REDIS_URL` in `docker-compose.yml`.
+
+**VS Code Desktop**: Open a running Codespace locally via `Ctrl+Shift+P` → "Codespaces: Connect to Codespace", or click "Open in VS Code Desktop" from the browser.
+
+### 2c. Docker Compose (Manual)
 
 ```bash
 docker compose up -d
