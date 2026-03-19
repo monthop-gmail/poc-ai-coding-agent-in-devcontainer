@@ -157,9 +157,16 @@ Agent ที่ตั้งค่าไว้ใน `.opencode/agents/`:
 
 ## นำไปใช้กับ Project ที่มีอยู่แล้ว
 
-ดูคู่มือฉบับเต็ม: **[docs/integrate-existing-project.md](docs/integrate-existing-project.md)**
+รันคำสั่งเดียวใน project ที่ต้องการ:
 
-สรุปสั้นๆ: clone template → copy ไฟล์เข้า project → ตั้งค่า `.env` → เปิดใช้
+```bash
+cd your-project
+curl -fsSL https://raw.githubusercontent.com/monthop-gmail/poc-ai-coding-agent-in-devcontainer/main/setup.sh | bash
+```
+
+Script จะเพิ่ม `.ai-agent/` เป็น git submodule โค้ดเดิมไม่ถูกแก้ไข อัปเดตง่าย ลบออกก็ง่าย
+
+ดูคู่มือฉบับเต็ม: **[docs/integrate-existing-project.md](docs/integrate-existing-project.md)**
 
 ## ตัวอย่างการใช้งาน
 
