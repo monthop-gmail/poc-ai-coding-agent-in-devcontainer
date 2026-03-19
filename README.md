@@ -74,6 +74,16 @@ docker compose exec workspace bash
 opencode
 ```
 
+## โหมดการใช้งาน OpenCode
+
+| โหมด | คำสั่ง | รายละเอียด |
+|------|--------|-----------|
+| **TUI** (Terminal) | `opencode` | ใช้ในเทอร์มินัลโดยตรง |
+| **Web UI** | `opencode web` | เปิดผ่าน browser ที่ port 4096 |
+| **TUI + Web พร้อมกัน** | เปิดทั้ง 2 | แชร์ session เดียวกัน |
+
+> **Web UI ใน DevContainer/Codespaces:** Port 4096 ถูกตั้งค่า forward ไว้แล้ว เปิด `opencode web` แล้ว VS Code จะแจ้งให้กด "Open in Browser" อัตโนมัติ
+
 ## Models ที่พร้อมใช้
 
 | Provider | Model | ใช้ทำอะไร |
