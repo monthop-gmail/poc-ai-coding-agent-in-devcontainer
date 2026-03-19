@@ -1,0 +1,38 @@
+{
+  "name": "AI Coding Agent - OpenCode",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "workspace",
+  "workspaceFolder": "/workspace",
+
+  // --- Features ---
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  // --- VS Code Customizations ---
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "continue.continue",
+        "github.copilot"
+      ]
+    }
+  },
+
+  // --- Lifecycle Scripts ---
+  "postCreateCommand": "bash /workspace/scripts/setup.sh",
+  "postStartCommand": "echo '🤖 OpenCode Agent ready! Run: opencode'",
+
+  // --- Environment ---
+  "remoteEnv": {
+    "QWEN_API_KEY": "${localEnv:QWEN_API_KEY}",
+    "GROQ_API_KEY": "${localEnv:GROQ_API_KEY}"
+  },
+
+  // --- User ---
+  "remoteUser": "dev"
+}

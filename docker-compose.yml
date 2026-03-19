@@ -1,0 +1,64 @@
+services:
+  # ===========================================
+  # OpenCode AI Coding Agent - DevContainer
+  # ===========================================
+  workspace:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - .:/workspace:cached
+      # Mount host auth for AI providers (if exists)
+      - opencode-config:/home/dev/.config/opencode
+    environment:
+      # --- AI Provider Keys (set in .env file) ---
+      - QWEN_API_KEY=${QWEN_API_KEY:-}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      # --- Memory Server ---
+      - MEMORIX_URL=http://memory:3100
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+      memory:
+        condition: service_started
+    # Keep container running for devcontainer attach
+    command: sleep infinity
+
+  # ===========================================
+  # Redis - Persistent Memory Store
+  # ===========================================
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --save 60 1
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # ===========================================
+  # Memorix - Shared Memory MCP Server
+  # ===========================================
+  memory:
+    build:
+      context: ./memory-server
+      dockerfile: Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - MCP_PORT=3100
+      - MEMORY_NAMESPACE=${TEAM_NAMESPACE:-default-team}
+    ports:
+      - "3100:3100"
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+    name: opencode-global-memory
+  opencode-config:

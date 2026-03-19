@@ -1,0 +1,14 @@
+# Environment
+.env
+
+# Node
+node_modules/
+memory-server/node_modules/
+
+# OpenCode local
+.opencode/sessions/
+.opencode/cache/
+
+# OS
+.DS_Store
+Thumbs.db
